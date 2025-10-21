@@ -23,6 +23,16 @@ class Tasks(BaseModel):
 
         return updated
 
+    def update_task_status(self, id: int, status: Status) -> bool:
+        updated = False
+        for task in self.items:
+            if task.id == id:
+                task.updated_at = datetime.now()
+                task.status = status
+                updated = True
+
+        return updated
+
     def delete_task(self, id: int):
         self.items = [task for task in self.items if id != task.id]
 
@@ -46,7 +56,7 @@ class Tasks(BaseModel):
             f.write(self.model_dump_json(indent=2))
 
     @classmethod
-    def open_tasks(cls) -> Tasks:
+    def create(cls) -> Tasks:
         with open("./tasks.json", "r") as f:
             data = json.load(f)
             if data:

@@ -17,9 +17,30 @@
     {
       "id": 3,
       "description": "Buy groceries",
-      "status": "todo",
+      "status": "in_progress",
       "created_at": "2025-10-21T20:18:16.203247",
-      "updated_at": "2025-10-21T20:18:16.203247"
+      "updated_at": "2025-10-21T21:02:40.094966"
+    },
+    {
+      "id": 4,
+      "description": "add",
+      "status": "todo",
+      "created_at": "2025-10-21T20:37:48.400216",
+      "updated_at": "2025-10-21T20:37:48.400216"
+    },
+    {
+      "id": 5,
+      "description": "Shopping",
+      "status": "todo",
+      "created_at": "2025-10-21T20:38:48.760358",
+      "updated_at": "2025-10-21T20:38:48.760358"
+    },
+    {
+      "id": 6,
+      "description": "Running",
+      "status": "in_progress",
+      "created_at": "2025-10-21T20:42:08.349261",
+      "updated_at": "2025-10-21T21:02:29.373660"
     }
   ]
 }
