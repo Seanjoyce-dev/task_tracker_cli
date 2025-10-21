@@ -1,10 +1,13 @@
 from datetime import datetime
+from pathlib import Path
 
 from pydantic import BaseModel, Field
 import json
 
 from models.status import Status
 from models.task import Task
+
+DEFAULT_TASKS_FILE = Path(Path.cwd() / "tasks.json")
 
 
 class Tasks(BaseModel):
@@ -52,12 +55,12 @@ class Tasks(BaseModel):
             return 1
 
     def write_tasks(self):
-        with open("./tasks.json", "w") as f:
+        with open(DEFAULT_TASKS_FILE, "w") as f:
             f.write(self.model_dump_json(indent=2))
 
     @classmethod
     def create(cls) -> Tasks:
-        with open("./tasks.json", "r") as f:
+        with open(DEFAULT_TASKS_FILE, "r") as f:
             data = json.load(f)
             if data:
                 return Tasks(**data)

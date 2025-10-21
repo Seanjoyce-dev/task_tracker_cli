@@ -28,43 +28,43 @@ def add(description: str):
 
 
 @app.command()
-def update(id: int, description: str):
-    updated = tasks.update_task(id, description=description)
+def update(task_id: int, description: str):
+    updated = tasks.update_task(task_id, description=description)
     if updated:
         tasks.write_tasks()
         print("Task was successfully updated")
     else:
-        print(f"Cound not find task with id of {id}")
+        print(f"Cound not find task with id of {task_id}")
 
 
 @app.command()
-def delete(id: int):
-    tasks.delete_task(id)
+def delete(task_id: int):
+    tasks.delete_task(task_id)
     tasks.write_tasks()
 
 
 @app.command()
-def mark_in_progress(id: int):
-    updated = tasks.update_task_status(id, status=Status.IN_PROGRESS)
+def mark_in_progress(task_id: int):
+    updated = tasks.update_task_status(task_id, status=Status.IN_PROGRESS)
     if updated:
         tasks.write_tasks()
         print("Task was successfully updated")
     else:
-        print(f"Cound not find task with id of {id}")
+        print(f"Cound not find task with id of {task_id}")
 
 
 @app.command()
-def mark_done(id: int):
-    updated = tasks.update_task_status(id, status=Status.DONE)
+def mark_done(task_id: int):
+    updated = tasks.update_task_status(task_id, status=Status.DONE)
     if updated:
         tasks.write_tasks()
         print("Task was successfully updated")
     else:
-        print(f"Cound not find task with id of {id}")
+        print(f"Cound not find task with id of {task_id}")
 
 
 @app.command()
-def list(status: Annotated[Status | None, typer.Argument()] = None):
+def list_tasks(status: Annotated[Status | None, typer.Argument()] = None):
     if status:
         tasks.list_filtered_tasks(status=status)
     else:
