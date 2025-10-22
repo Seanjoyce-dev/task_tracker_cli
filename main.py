@@ -1,6 +1,8 @@
 from datetime import datetime
 import typer
 from typing_extensions import Annotated
+from rich.console import Console
+from rich.table import Table
 
 from models.status import Status
 from models.task import Task

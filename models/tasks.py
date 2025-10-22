@@ -1,5 +1,6 @@
 from datetime import datetime
 from pathlib import Path
+from table_builder import print_table
 
 from pydantic import BaseModel, Field
 import json
@@ -40,13 +41,11 @@ class Tasks(BaseModel):
         self.items = [task for task in self.items if id != task.id]
 
     def list_tasks(self):
-        for task in self.items:
-            print(task)
+        print_table(self.items)
 
     def list_filtered_tasks(self, status: Status):
-        for task in self.items:
-            if task.status == status:
-                print(task)
+        filteredList = [task for task in self.items if status == task.status]
+        print_table(filteredList)
 
     def get_new_id(self) -> int:
         if len(self.items) > 0:
