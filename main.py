@@ -13,7 +13,7 @@ app = typer.Typer()
 @app.command()
 def add(description: str):
     date = datetime.now()
-    id = tasks.get_new_id()
+    id = tasks.next_id()
     task = Task(
         id=id,
         description=description,

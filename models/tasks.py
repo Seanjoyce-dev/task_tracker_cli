@@ -18,27 +18,27 @@ class Tasks(BaseModel):
         self.items.append(task)
 
     def update_task(self, id: int, description: str) -> bool:
-        updated = False
-        for task in self.items:
-            if task.id == id:
-                task.description = description
-                task.updated_at = datetime.now()
-                updated = True
+        task = self.find(id)
+        if task:
+            task.description = description
+            task.updated_at = datetime.now()
+            return True
 
-        return updated
+        return False
 
     def update_task_status(self, id: int, status: Status) -> bool:
-        updated = False
-        for task in self.items:
-            if task.id == id:
-                task.updated_at = datetime.now()
-                task.status = status
-                updated = True
+        task = self.find(id)
+        if task:
+            task.updated_at = datetime.now()
+            task.status = status
+            return True
 
-        return updated
+        return False
 
-    def delete_task(self, id: int):
+    def delete_task(self, id: int) -> bool:
+        before = len(self.items)
         self.items = [task for task in self.items if id != task.id]
+        return len(self.items) < before
 
     def list_tasks(self):
         print_table(self.items)
@@ -47,11 +47,11 @@ class Tasks(BaseModel):
         filteredList = [task for task in self.items if status == task.status]
         print_table(filteredList)
 
-    def get_new_id(self) -> int:
-        if len(self.items) > 0:
-            return max(self.items, key=lambda x: x.id).id + 1
-        else:
-            return 1
+    def find(self, id: int) -> Task | None:
+        return next((t for t in self.items if t.id == id), None)
+
+    def next_id(self) -> int:
+        return max((t.id for t in self.items), default=0) + 1
 
     def write_tasks(self):
         with open(DEFAULT_TASKS_FILE, "w") as f:
